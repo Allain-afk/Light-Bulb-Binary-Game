@@ -392,3 +392,5 @@ button:active {
     outline: none;
     border-bottom-color: #FFFF80;
 }
+
+/* Add a glow effect to the input field when focused */

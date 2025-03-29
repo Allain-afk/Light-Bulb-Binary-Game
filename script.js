@@ -307,3 +307,5 @@ class BinaryLightBulbGame {
 document.addEventListener('DOMContentLoaded', () => {
     new BinaryLightBulbGame();
 });
+
+// hi
