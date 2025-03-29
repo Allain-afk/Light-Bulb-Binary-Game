@@ -1,0 +1,396 @@
+body {
+    font-family: 'Arial', sans-serif;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    min-height: 100vh;
+    margin: 0;
+    background-color: #000;
+    color: #fff;
+    padding: 10px;
+    box-sizing: border-box;
+}
+
+h1 {
+    grid-area: title;
+    margin: 0;
+    text-align: center;
+    font-size: 1.8rem;
+    position: relative;
+    z-index: 1;
+}
+
+.game-container {
+    display: grid;
+    grid-template-areas:
+        "title"
+        "bulbs"
+        "displays"
+        "explanation"
+        "buttons";
+    gap: 20px;
+    align-items: center;
+    justify-items: center;
+    background-color: #000000;
+    padding: 20px;
+    border-radius: 12px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+    width: 100%;
+    max-width: 900px;
+    min-height: 60vh;
+    position: relative;
+    overflow: visible;
+}
+
+.decimal-display {
+    position: relative;
+    z-index: 2;
+    font-size: 2rem;
+    font-weight: bold;
+    margin: 20px 0;
+    min-height: 50px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    text-align: center;
+}
+
+.number-displays {
+    grid-area: displays;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    gap: 40px;
+    padding: 10px;
+    flex-wrap: nowrap;  /* Prevent wrapping */
+    position: relative;
+    z-index: 2;
+    width: 100%;
+    margin: 0;
+}
+
+.octal-display, .hex-display {
+    font-size: 1rem;  /* Changed from 1.5rem to match decimal-display */
+    font-weight: bold;
+    color: #fff;      /* Changed from #FFD580 to white */
+}
+
+.bulbs-container {
+    grid-area: bulbs;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+    gap: 20px;
+    width: 90%;
+    max-width: 800px;
+    padding: 20px;
+    margin: 0;
+    z-index: 2;
+}
+
+.bulb {
+    cursor: pointer;
+    width: calc(8vw + 30px); /* Responsive width */
+    height: calc(5vw + 45px); /* Responsive height */
+    min-width: 50px;
+    min-height: 100px;
+    max-width: 100px;
+    max-height: 180px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    transition: transform 0.2s;
+}
+
+.bulb:hover {
+    transform: scale(1.05);
+}
+
+.bulb:active {
+    transform: scale(0.95);
+}
+
+.bulb-image {
+    width: 100%;
+    height: 75%;
+    border-radius: 50%;
+    margin-bottom: 5px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+    background-color: #FFD580;
+    position: relative;
+    overflow: hidden;
+}
+
+.bulb-image::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: radial-gradient(circle at center, #FFFF80, #FFD580);
+    opacity: 0;
+    transition: opacity 0.2s ease-in-out;
+}
+
+.bulb-on .bulb-image {
+    background-color: #FFFF80;
+    box-shadow: 0 0 12px 5px rgba(255, 255, 0, 0.6);
+    z-index: 2; /* Add z-index for lit bulbs */
+}
+
+.bulb-on .bulb-image::before {
+    opacity: 1;
+}
+
+.bulb-base {
+    width: 40px;
+    height: 12px;
+    background-color: #696969;
+    border-radius: 0 0 12px 12px;
+}
+
+.bulb-value {
+    font-weight: bold;
+    font-size: 1rem;
+    margin-top: 5px;
+}
+
+.buttons {
+    grid-area: buttons;
+    position: relative;
+    z-index: 2;
+    display: flex;
+    justify-content: center;
+    gap: 15px;
+    margin: 0;
+    width: 100%;
+}
+
+button {
+    padding: 12px 20px;
+    font-size: 1rem;
+    border: none;
+    border-radius: 5px;
+    background-color: #4CAF50;
+    color: white;
+    cursor: pointer;
+    transition: background-color 0.2s;
+    -webkit-tap-highlight-color: transparent;
+}
+
+button:hover {
+    background-color: #45a049;
+}
+
+button:active {
+    transform: scale(0.95);
+}
+
+.reset-btn {
+    background-color: #f44336;
+}
+
+.reset-btn:hover {
+    background-color: #d32f2f;
+}
+
+.info-bit {
+    font-size: 0.7rem;
+    color: #888;
+    margin-top: 3px;
+}
+
+#gameCanvas {
+    width: 100%;
+    max-width: 900px;
+    height: auto;
+    margin: 20px auto;
+    background-color: transparent;
+    display: block;
+}
+
+.explanation-panel {
+    grid-area: explanation;
+    width: 100%;
+    padding: 15px;
+    margin: 0;
+    background-color: rgba(255, 255, 255, 0.1);
+    border-radius: 8px;
+    display: block; /* Changed from 'none' to 'block' */
+}
+
+/* Remove or comment out this class since we want it always visible */
+/* .explanation-panel.active {
+    display: block;
+    animation: fadeIn 0.3s ease-in-out;
+} */
+
+.explanation-panel h3 {
+    color: #FFD580;
+    margin-bottom: 10px;
+}
+
+.explanation-panel p {
+    color: #fff;
+    line-height: 1.5;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+/* Media queries for responsiveness */
+@media (min-width: 769px) {
+    /* When there are many bulbs (7 or more) */
+    .bulbs-container:has(> .bulb:nth-child(7)) ~ .number-displays {
+        flex-direction: row;  /* Keep horizontal even with many bulbs */
+        justify-content: space-around;
+        gap: 20px;
+    }
+}
+
+@media (max-width: 768px) {
+    h1 {
+        font-size: 1.5rem;
+    }
+    
+    .game-container {
+        padding: 15px;
+        justify-content: flex-start;
+    }
+    
+    .decimal-display {
+        font-size: 1.6rem;
+        min-height: 40px;
+    }
+    
+    .bulb {
+        width: calc(10vw + 20px);
+        height: calc(15vw + 40px);
+    }
+
+    .octal-display, .hex-display {
+        font-size: 1.2rem;
+    }
+
+    .decimal-display, .octal-display, .hex-display {
+        font-size: 1.6rem;
+        min-height: 35px;
+    }
+    
+    .number-displays {
+        flex-direction: column;  /* Stack vertically on mobile */
+        gap: 15px;
+        margin: 15px 0;
+    }
+
+    .number-input {
+        width: 80px;
+        font-size: 1.2rem;
+    }
+
+    .bulbs-container {
+        margin: 20px auto;
+        padding: 10px;
+    }
+
+    .number-displays {
+        flex-direction: column;
+        gap: 15px;
+    }
+
+    .decimal-display, .octal-display, .hex-display {
+        width: 100%;
+        justify-content: center;
+    }
+}
+
+@media (max-width: 480px) {
+    .bulb {
+        width: calc(12vw + 15px);
+        height: calc(18vw + 30px);
+    }
+    
+    .bulb-image {
+        width: 40px;
+        height: 50px;
+    }
+    
+    .bulb-base {
+        width: 18px;
+        height: 10px;
+    }
+    
+    .bulb-value {
+        font-size: 0.9rem;
+    }
+    
+    .info-bit {
+        font-size: 0.6rem;
+    }
+    
+    button {
+        padding: 10px 15px;
+        font-size: 0.9rem;
+    }
+}
+
+@media (max-width: 360px) {
+    .bulb {
+        width: 35px;
+        height: 80px;
+    }
+    
+    .bulb-image {
+        width: 35px;
+        height: 45px;
+    }
+    
+    .bulb-value {
+        font-size: 0.8rem;
+    }
+}
+
+.decimal-display, .octal-display, .hex-display {
+    position: relative;
+    z-index: 2;
+    font-size: 1.5rem;  /* Slightly reduced font size */
+    font-weight: bold;
+    min-height: 40px;
+    display: flex;
+    align-items: center;
+    gap: 10px;  /* Add gap between label and input */
+    color: #fff;
+    min-width: 200px;  /* Ensure consistent width */
+    flex: 1;  /* Allow equal width distribution */
+    max-width: 250px;  /* Limit maximum width */
+    justify-content: center;
+}
+
+.number-input {
+    background: transparent;
+    border: none;
+    border-bottom: 2px solid #FFD580;
+    color: #fff;
+    font-size: inherit;
+    font-weight: bold;
+    width: 100px;
+    padding: 5px;
+    margin-left: 5px;
+    text-align: center;
+    transition: border-color 0.3s ease;
+}
+
+.number-input:focus {
+    outline: none;
+    border-bottom-color: #FFFF80;
+}
+
+/* Add a glow effect to the input field when focused */
