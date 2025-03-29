@@ -9,10 +9,13 @@ class BinaryLightBulbGame {
         this.resetButton = document.getElementById('resetButton');
         this.isMobile = window.matchMedia("(max-width: 768px)").matches;
 
-        this.canvas = document.getElementById('gameCanvas');
-        this.ctx = this.canvas.getContext('2d');
-        this.explanationPanel = document.getElementById('explanationPanel');
+
+        // Update explanation panel references
+        this.explanationsWrapper = document.querySelector('.explanations-wrapper');
         this.binaryExplanation = document.getElementById('binaryExplanation');
+        this.decimalExplanation = document.getElementById('decimalExplanation');
+        this.octalExplanation = document.getElementById('octalExplanation');
+        this.hexExplanation = document.getElementById('hexExplanation');
 
         this.decimalInput = document.getElementById('decimalInput');
         this.octalInput = document.getElementById('octalInput');
@@ -31,12 +34,6 @@ class BinaryLightBulbGame {
         this.renderBulbs();
         this.updateDisplays(0);
         this.updateExplanation(); // Add this line to show initial explanation
-    }
-
-    // Add this new method to hide the explanation
-    hideExplanation() {
-        this.explanationPanel.classList.remove('active');
-        this.binaryExplanation.textContent = '';
     }
 
     // Add event listeners
@@ -241,7 +238,31 @@ class BinaryLightBulbGame {
         const octalValue = this.calculateOctalValue(decimalValue);
         const hexValue = this.calculateHexValue(decimalValue);
 
-        // Calculate detailed octal steps
+        // Binary Explanation
+        const binaryExplanation = document.getElementById('binaryExplanation');
+        binaryExplanation.innerHTML = `
+            <strong>Binary Value:</strong> ${binaryValue}<br><br>
+            <strong>Calculation:</strong><br>
+            ${this.bulbsState.map((bit, index) => {
+                const power = this.bulbsState.length - 1 - index;
+                return bit === 1 ? `(1 × 2<sup>${power}</sup>)` : `(0 × 2<sup>${power}</sup>)`;
+            }).join(' + ')}
+        `;
+
+        // Decimal Explanation
+        const decimalExplanation = document.getElementById('decimalExplanation');
+        decimalExplanation.innerHTML = `
+            <strong>Decimal Value:</strong> ${decimalValue}<sub>10</sub><br><br>
+            <strong>From Binary:</strong><br>
+            ${this.bulbsState.map((bit, index) => {
+                const power = this.bulbsState.length - 1 - index;
+                return bit === 1 ? `${Math.pow(2, power)}` : '0';
+            }).filter(val => val !== '0').join(' + ') || '0'}
+            = ${decimalValue}
+        `;
+
+        // Octal Explanation
+        const octalExplanation = document.getElementById('octalExplanation');
         let octalSteps = [];
         let octalNum = decimalValue;
         let octalResult = [];
@@ -250,8 +271,15 @@ class BinaryLightBulbGame {
             octalResult.unshift(octalNum % 8);
             octalNum = Math.floor(octalNum/8);
         }
+        octalExplanation.innerHTML = `
+            <strong>Octal Value:</strong> ${octalValue}<sub>8</sub><br><br>
+            <strong>Conversion Steps:</strong><br>
+            ${decimalValue === 0 ? '0' : octalSteps.join('<br>')}
+            ${decimalValue !== 0 ? `<br>Result: ${octalResult.join('')}<sub>8</sub>` : ''}
+        `;
 
-        // Calculate detailed hexadecimal steps
+        // Hexadecimal Explanation
+        const hexExplanation = document.getElementById('hexExplanation');
         let hexSteps = [];
         let hexNum = decimalValue;
         let hexResult = [];
@@ -262,36 +290,12 @@ class BinaryLightBulbGame {
             hexResult.unshift(hexDigit);
             hexNum = Math.floor(hexNum/16);
         }
-
-        let explanation = `
-            <h3>Number System Calculations</h3>
-            
-            <p><strong>Binary (Base-2):</strong> ${binaryValue}</p>
-            
-            <p><strong>Calculation to Decimal:</strong><br>
-            ${this.bulbsState.map((bit, index) => {
-                const power = this.bulbsState.length - 1 - index;
-                return bit === 1 ? `(1 × 2<sup>${power}</sup>)` : `(0 × 2<sup>${power}</sup>)`;
-            }).join(' + ')}<br>
-            = ${decimalValue}</p>
-
-            <p><strong>Decimal to Octal (Base-8):</strong><br>
-            ${decimalValue === 0 ? '0' : octalSteps.join('<br>')}
-            ${decimalValue !== 0 ? `<br>Reading remainders from bottom to top: ${octalResult.join('')}<sub>8</sub>` : ''}
-            </p>
-
-            <p><strong>Decimal to Hexadecimal (Base-16):</strong><br>
+        hexExplanation.innerHTML = `
+            <strong>Hexadecimal Value:</strong> ${hexValue}<sub>16</sub><br><br>
+            <strong>Conversion Steps:</strong><br>
             ${decimalValue === 0 ? '0' : hexSteps.join('<br>')}
-            ${decimalValue !== 0 ? `<br>Reading remainders from bottom to top: ${hexResult.join('')}<sub>16</sub>` : ''}
-            </p>
-
-            <p><strong>Final Values:</strong><br>
-            Decimal: ${decimalValue}<sub>10</sub><br>
-            Octal: ${octalValue}<sub>8</sub><br>
-            Hexadecimal: ${hexValue}<sub>16</sub></p>
+            ${decimalValue !== 0 ? `<br>Result: ${hexResult.join('')}<sub>16</sub>` : ''}
         `;
-
-        this.binaryExplanation.innerHTML = explanation;
     }
 
     // Calculate the decimal value from the binary state

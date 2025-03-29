@@ -9,17 +9,35 @@
 <body>
     <div class="game-container">
         <h1>Binary Light Bulb Game</h1>
-        <canvas id="gameCanvas"></canvas>
         <div class="number-displays">
             <div class="decimal-display">Decimal: <input type="text" class="number-input" id="decimalInput" value="0"></div>
             <div class="octal-display">Octal: <input type="text" class="number-input" id="octalInput" value="0"></div>
             <div class="hex-display">Hex: <input type="text" class="number-input" id="hexInput" value="0"></div>
         </div>
         <div class="bulbs-container" id="bulbsContainer"></div>
-        <div class="explanation-panel" id="explanationPanel">
-            <h3>Explanation</h3>
-            <p id="binaryExplanation"></p>
+        
+        <!-- Moved explanations container here, above the reset button -->
+        <div class="explanations-wrapper">
+            <div class="explanations-container">
+                <div class="explanation-panel binary">
+                    <h3>Binary Explanation</h3>
+                    <p id="binaryExplanation"></p>
+                </div>
+                <div class="explanation-panel decimal">
+                    <h3>Decimal Explanation</h3>
+                    <p id="decimalExplanation"></p>
+                </div>
+                <div class="explanation-panel octal">
+                    <h3>Octal Explanation</h3>
+                    <p id="octalExplanation"></p>
+                </div>
+                <div class="explanation-panel hex">
+                    <h3>Hexadecimal Explanation</h3>
+                    <p id="hexExplanation"></p>
+                </div>
+            </div>
         </div>
+        
         <div class="buttons">
             <button class="reset-btn" id="resetButton">Reset</button>
         </div>

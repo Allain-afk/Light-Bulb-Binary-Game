@@ -22,25 +22,12 @@ h1 {
 }
 
 .game-container {
-    display: grid;
-    grid-template-areas:
-        "title"
-        "bulbs"
-        "displays"
-        "explanation"
-        "buttons";
+    display: flex;
+    flex-direction: column;
     gap: 20px;
-    align-items: center;
-    justify-items: center;
-    background-color: #000000;
+    max-width: 1200px;
+    margin: 0 auto;
     padding: 20px;
-    border-radius: 12px;
-    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
-    width: 100%;
-    max-width: 900px;
-    min-height: 60vh;
-    position: relative;
-    overflow: visible;
 }
 
 .decimal-display {
@@ -162,7 +149,7 @@ h1 {
 }
 
 .buttons {
-    grid-area: buttons;
+    order: 3;  /* This ensures it appears after the explanations */
     position: relative;
     z-index: 2;
     display: flex;
@@ -170,6 +157,8 @@ h1 {
     gap: 15px;
     margin: 0;
     width: 100%;
+    margin-top: 20px;
+    text-align: center;
 }
 
 button {
@@ -193,7 +182,14 @@ button:active {
 }
 
 .reset-btn {
+    padding: 10px 20px;
+    font-size: 16px;
+    cursor: pointer;
     background-color: #f44336;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    transition: background-color 0.3s;
 }
 
 .reset-btn:hover {
@@ -215,30 +211,58 @@ button:active {
     display: block;
 }
 
-.explanation-panel {
-    grid-area: explanation;
+.explanations-wrapper {
     width: 100%;
+    order: 2;  /* This ensures it appears before the buttons */
+    margin: 20px auto;
     padding: 15px;
-    margin: 0;
-    background-color: rgba(255, 255, 255, 0.1);
-    border-radius: 8px;
-    display: block; /* Changed from 'none' to 'block' */
 }
 
-/* Remove or comment out this class since we want it always visible */
-/* .explanation-panel.active {
-    display: block;
-    animation: fadeIn 0.3s ease-in-out;
-} */
+.explanations-container {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 15px;
+    margin: 0 auto;
+    max-width: 1200px;
+}
+
+.explanation-panel {
+    background-color: #f8f9fa;
+    border: 1px solid #dee2e6;
+    border-radius: 8px;
+    padding: 15px;
+    min-height: 150px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
 
 .explanation-panel h3 {
-    color: #FFD580;
-    margin-bottom: 10px;
+    color: #333;
+    margin-top: 0;
+    margin-bottom: 15px;
+    padding-bottom: 8px;
+    border-bottom: 2px solid #dee2e6;
 }
 
 .explanation-panel p {
-    color: #fff;
+    margin: 0;
     line-height: 1.5;
+    color: #495057;
+}
+
+.explanation-panel.binary { border-left: 4px solid #28a745; }
+.explanation-panel.decimal { border-left: 4px solid #007bff; }
+.explanation-panel.octal { border-left: 4px solid #fd7e14; }
+.explanation-panel.hex { border-left: 4px solid #6f42c1; }
+
+/* Responsive design */
+@media (max-width: 768px) {
+    .explanations-container {
+        grid-template-columns: 1fr;
+    }
+    
+    .explanation-panel {
+        min-height: auto;
+    }
 }
 
 @keyframes fadeIn {
