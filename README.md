@@ -1,6 +1,6 @@
 # Binary Light Bulb Game
 
-![Binary Light Bulb Game](https://i.imgur.com/V2LDWKG.png)
+![Preview](img/Preview.png)
 
 ## [Live Demo](https://allain-afk.github.io/BINARY/)
 
