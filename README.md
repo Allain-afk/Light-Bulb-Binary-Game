@@ -2,9 +2,7 @@
 
 ![Preview](img/Preview.png)
 
-## [Live Demo](https://allain-afk.github.io/BINARY/)
-
-An interactive educational tool designed to help users understand number systems including binary, decimal, octal, and hexadecimal. By toggling virtual light bulbs, users can create binary numbers and observe real-time conversions between different number systems.
+![Live Demo](https://allain-afk.github.io/BINARY/)
 
 ## Features
 
