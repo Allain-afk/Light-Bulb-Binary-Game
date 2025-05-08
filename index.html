@@ -3,44 +3,81 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta name="description" content="Interactive Binary Light Bulb Game - Learn binary, decimal, hexadecimal, and octal number systems">
     <title>Binary Light Bulb Game</title>
     <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
 </head>
 <body>
     <div class="game-container">
-        <h1>Binary Light Bulb Game</h1>
-        <div class="number-displays">
-            <div class="decimal-display">Decimal: <input type="text" class="number-input" id="decimalInput" value="0"></div>
-            <div class="octal-display">Octal: <input type="text" class="number-input" id="octalInput" value="0"></div>
-            <div class="hex-display">Hex: <input type="text" class="number-input" id="hexInput" value="0"></div>
-        </div>
-        <div class="bulbs-container" id="bulbsContainer"></div>
+        <header>
+            <h1>Binary Light Bulb Game <i class="fas fa-lightbulb"></i></h1>
+            <p class="tagline">Turn on the light bulbs to create binary numbers and see conversions</p>
+        </header>
         
-        <!-- Moved explanations container here, above the reset button -->
+        <div class="number-displays">
+            <div class="decimal-display" tabindex="0">
+                <label for="decimalInput">Decimal:</label>
+                <input type="text" class="number-input" id="decimalInput" value="0" aria-label="Decimal input">
+            </div>
+            <div class="octal-display" tabindex="0">
+                <label for="octalInput">Octal:</label>
+                <input type="text" class="number-input" id="octalInput" value="0" aria-label="Octal input">
+            </div>
+            <div class="hex-display" tabindex="0">
+                <label for="hexInput">Hex:</label>
+                <input type="text" class="number-input" id="hexInput" value="0" aria-label="Hexadecimal input">
+            </div>
+        </div>
+        
+        <div class="controls">
+            <button id="addBulbButton" class="action-btn add-btn">
+                <i class="fas fa-plus"></i> Add Bulb
+            </button>
+            <button id="randomizeButton" class="action-btn random-btn">
+                <i class="fas fa-random"></i> Randomize
+            </button>
+        </div>
+        
+        <div class="bulbs-wrapper">
+            <div class="bulbs-container" id="bulbsContainer" role="group" aria-label="Light bulbs representing binary digits"></div>
+        </div>
+        
         <div class="explanations-wrapper">
+            <div class="explanations-header">
+                <h2>Number System Conversions</h2>
+                <p>Watch how the values change across different number systems</p>
+            </div>
             <div class="explanations-container">
                 <div class="explanation-panel binary">
-                    <h3>Binary Explanation</h3>
+                    <h3><i class="fas fa-microchip"></i> Binary Explanation</h3>
                     <p id="binaryExplanation"></p>
                 </div>
                 <div class="explanation-panel decimal">
-                    <h3>Decimal Explanation</h3>
+                    <h3><i class="fas fa-calculator"></i> Decimal Explanation</h3>
                     <p id="decimalExplanation"></p>
                 </div>
                 <div class="explanation-panel octal">
-                    <h3>Octal Explanation</h3>
+                    <h3><i class="fas fa-hashtag"></i> Octal Explanation</h3>
                     <p id="octalExplanation"></p>
                 </div>
                 <div class="explanation-panel hex">
-                    <h3>Hexadecimal Explanation</h3>
+                    <h3><i class="fas fa-code"></i> Hexadecimal Explanation</h3>
                     <p id="hexExplanation"></p>
                 </div>
             </div>
         </div>
         
         <div class="buttons">
-            <button class="reset-btn" id="resetButton">Reset</button>
+            <button class="reset-btn" id="resetButton">
+                <i class="fas fa-redo-alt"></i> Reset
+            </button>
         </div>
+        
+        <footer class="game-footer">
+            <p>Click or tap on the light bulbs to toggle their values</p>
+            <p>Use the number inputs to set specific values</p>
+        </footer>
     </div>
     <script src="scripts.js"></script>
 </body>
