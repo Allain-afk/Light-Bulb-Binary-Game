@@ -1,3 +1,55 @@
+/* Theme variables */
+:root {
+    /* Default dark theme */
+    --bg-gradient-start: #121212;
+    --bg-gradient-end: #2c3e50;
+    --card-bg: rgba(0, 0, 0, 0.4);
+    --card-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+    --card-border: 1px solid transparent;
+    --text-primary: #fff;
+    --text-secondary: #aaa;
+    --control-bg: rgba(0, 0, 0, 0.2);
+    --control-bg-hover: rgba(0, 0, 0, 0.3);
+    --panel-bg: rgba(15, 20, 25, 0.85);
+    --panel-border: #2e3740;
+    --panel-text: #e0e0e0;
+    --bulb-off-color: #d3d3d3;
+    --bulb-on-color: #FFFF80;
+    --bulb-filament: #888;
+    --bulb-base: #696969;
+    --bulb-base-connector: #555;
+    --bulb-glow: rgba(255, 255, 0, 0.7);
+    --highlight-color: rgba(255, 255, 128, 0.5);
+    --decimal-color: #5cb5f9;
+    --octal-color: #f97c3c;
+    --hex-color: #b967ff;
+}
+
+[data-theme="light"] {
+    --bg-gradient-start: #d4e9ff;
+    --bg-gradient-end: #a3c9fa;
+    --card-bg: rgba(255, 255, 255, 0.95);
+    --card-shadow: 0 10px 30px rgba(0, 60, 255, 0.2);
+    --card-border: 1px solid rgba(100, 170, 255, 0.2);
+    --text-primary: #05203c;
+    --text-secondary: #2c4c6e;
+    --control-bg: rgba(50, 150, 255, 0.2);
+    --control-bg-hover: rgba(50, 150, 255, 0.35);
+    --panel-bg: rgba(255, 255, 255, 0.98);
+    --panel-border: #b0d0f5;
+    --panel-text: #1e3c5a;
+    --bulb-off-color: #e8e8e8;
+    --bulb-on-color: #ffee00;
+    --bulb-filament: #bbb;
+    --bulb-base: #777;
+    --bulb-base-connector: #666;
+    --bulb-glow: rgba(255, 225, 0, 0.8);
+    --highlight-color: rgba(255, 200, 0, 0.4);
+    --decimal-color: #0055cc;
+    --octal-color: #d15c00;
+    --hex-color: #5c10c5;
+}
+
 body {
     font-family: 'Segoe UI', 'Arial', sans-serif;
     display: flex;
@@ -6,11 +58,12 @@ body {
     justify-content: center;
     min-height: 100vh;
     margin: 0;
-    background: linear-gradient(135deg, #121212, #2c3e50);
-    color: #fff;
+    background: linear-gradient(135deg, var(--bg-gradient-start), var(--bg-gradient-end));
+    color: var(--text-primary);
     padding: 10px;
     box-sizing: border-box;
     overflow-x: hidden;
+    transition: background 0.5s ease;
 }
 
 h1 {
@@ -21,11 +74,31 @@ h1 {
     position: relative;
     z-index: 1;
     text-shadow: 0 2px 10px rgba(255, 255, 128, 0.2);
-    transition: transform 0.3s;
+    transition: transform 0.3s, color 0.3s;
+    color: var(--text-primary);
+    font-weight: 700;
 }
 
 h1:hover {
     transform: scale(1.03);
+}
+
+[data-theme="light"] h1 {
+    color: #000000;
+    text-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    font-weight: 800;
+}
+
+h2, h3 {
+    font-weight: 600;
+}
+
+p, span, div, label {
+    font-weight: 400;
+}
+
+strong, b {
+    font-weight: 700;
 }
 
 .game-container {
@@ -33,13 +106,16 @@ h1:hover {
     flex-direction: column;
     gap: 20px;
     max-width: 1200px;
+    width: 100%;
     margin: 0 auto;
     padding: 25px;
     border-radius: 16px;
-    background: rgba(0, 0, 0, 0.4);
+    background: var(--card-bg);
     backdrop-filter: blur(10px);
-    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
-    transition: transform 0.3s ease;
+    box-shadow: var(--card-shadow);
+    border: var(--card-border);
+    box-sizing: border-box;
+    transition: all 0.3s ease, background 0.5s ease, box-shadow 0.5s ease;
 }
 
 header {
@@ -48,12 +124,17 @@ header {
 }
 
 .tagline {
-    color: #aaa;
+    color: var(--text-secondary);
     margin-top: 5px;
     font-size: 1.1rem;
     max-width: 600px;
     margin-left: auto;
     margin-right: auto;
+}
+
+[data-theme="light"] h2 {
+    color: #000000;
+    font-weight: 700;
 }
 
 .controls {
@@ -125,7 +206,7 @@ header {
 }
 
 .explanations-header p {
-    color: #aaa;
+    color: var(--text-secondary);
     margin: 0;
     font-size: 0.95rem;
 }
@@ -133,8 +214,8 @@ header {
 .game-footer {
     margin-top: 20px;
     text-align: center;
-    color: #aaa;
-    border-top: 1px solid rgba(255, 255, 255, 0.1);
+    color: var(--text-secondary);
+    border-top: 1px solid rgba(128, 128, 128, 0.2);
     padding-top: 15px;
 }
 
@@ -150,19 +231,24 @@ header {
     justify-content: center;
     align-items: center;
     gap: 40px;
-    padding: 15px;
+    padding: 15px 20px;
     flex-wrap: nowrap;
     position: relative;
     z-index: 2;
-    width: 100%;
-    margin: 0;
-    background: rgba(0, 0, 0, 0.2);
+    width: calc(100% - 40px);
+    margin: 0 auto;
     border-radius: 10px;
     transition: all 0.3s ease;
+    box-sizing: border-box;
+    border: 1px solid transparent;
+    max-width: 900px;
+    min-height: 100px;
+    height: 100px;
+    background: var(--control-bg);
 }
 
 .number-displays:hover {
-    background: rgba(0, 0, 0, 0.3);
+    background: var(--control-bg-hover);
     transform: translateY(-2px);
     box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
 }
@@ -172,35 +258,40 @@ header {
     z-index: 2;
     font-size: 1.5rem;
     font-weight: bold;
-    min-height: 40px;
+    height: 60px;
+    min-height: 60px;
     display: flex;
     align-items: center;
     gap: 10px;
-    color: #fff;
     min-width: 200px;
     flex: 1;
     max-width: 250px;
     justify-content: center;
     transition: all 0.3s ease;
+    padding: 8px;
+    border-radius: 8px;
+    background: rgba(255, 255, 255, 0.1);
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+    box-sizing: border-box;
 }
 
 .decimal-display {
-    color: #5cb5f9;
+    color: var(--decimal-color);
 }
 
 .octal-display {
-    color: #f97c3c;
+    color: var(--octal-color);
 }
 
 .hex-display {
-    color: #b967ff;
+    color: var(--hex-color);
 }
 
 .number-input {
     background: transparent;
     border: none;
     border-bottom: 2px solid rgba(255, 255, 128, 0.5);
-    color: #fff;
+    color: var(--text-primary);
     font-size: inherit;
     font-weight: bold;
     width: 100px;
@@ -283,7 +374,7 @@ header {
     border-radius: 50% 50% 45% 45%;
     margin-bottom: 0;
     box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
-    background-color: #d3d3d3;
+    background-color: var(--bulb-off-color);
     position: relative;
     overflow: hidden;
     transition: all 0.3s ease;
@@ -296,19 +387,9 @@ header {
     transform: translate(-50%, -50%);
     width: 3px;
     height: 20px;
-    background: #888;
+    background: var(--bulb-filament);
     z-index: 1;
     opacity: 0.7;
-}
-
-.bulb-filament::before,
-.bulb-filament::after {
-    content: '';
-    position: absolute;
-    width: 10px;
-    height: 2px;
-    background: #888;
-    top: 2px;
 }
 
 .bulb-filament::before {
@@ -319,6 +400,25 @@ header {
 .bulb-filament::after {
     transform: rotate(-45deg);
     right: -5px;
+}
+
+.bulb-on .bulb-image {
+    background-color: var(--bulb-on-color);
+    box-shadow: 
+        0 0 20px 8px var(--bulb-glow),
+        0 0 40px 15px rgba(255, 255, 128, 0.3);
+    z-index: 2;
+}
+
+.bulb-on .bulb-filament {
+    background: var(--bulb-filament);
+    box-shadow: 0 0 10px #FFFF80;
+}
+
+.bulb-on .bulb-filament::before,
+.bulb-on .bulb-filament::after {
+    background: var(--bulb-filament);
+    box-shadow: 0 0 5px #FFFF80;
 }
 
 .bulb-image::after {
@@ -345,25 +445,6 @@ header {
     transition: opacity 0.3s ease-in-out;
 }
 
-.bulb-on .bulb-image {
-    background-color: #FFFF80;
-    box-shadow: 
-        0 0 20px 8px rgba(255, 255, 0, 0.7),
-        0 0 40px 15px rgba(255, 255, 0, 0.3);
-    z-index: 2;
-}
-
-.bulb-on .bulb-filament {
-    background: #FFFF80;
-    box-shadow: 0 0 10px #FFFF80;
-}
-
-.bulb-on .bulb-filament::before,
-.bulb-on .bulb-filament::after {
-    background: #FFFF80;
-    box-shadow: 0 0 5px #FFFF80;
-}
-
 .bulb-on .bulb-image::before {
     opacity: 1;
 }
@@ -371,7 +452,7 @@ header {
 .bulb-base {
     width: 32px;
     height: 25px;
-    background-color: #696969;
+    background-color: var(--bulb-base);
     border-radius: 2px 2px 6px 6px;
     position: relative;
     box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
@@ -397,8 +478,15 @@ header {
         #a0a0a0 100%);
 }
 
-.bulb-on .bulb-base::before {
-    background-color: #777;
+.bulb-base::before {
+    content: '';
+    position: absolute;
+    top: -8px;
+    left: 0;
+    width: 32px;
+    height: 10px;
+    background-color: var(--bulb-base-connector);
+    border-radius: 12px 12px 2px 2px;
 }
 
 .bulb-value {
@@ -406,7 +494,7 @@ header {
     font-size: 1.1rem;
     margin-top: 15px;
     transition: all 0.3s ease;
-    color: #fff;
+    color: var(--text-primary);
 }
 
 .bulb-on .bulb-value {
@@ -416,7 +504,7 @@ header {
 
 .info-bit {
     font-size: 0.7rem;
-    color: #aaa;
+    color: var(--text-secondary);
     margin-top: 3px;
     transition: color 0.3s ease;
 }
@@ -522,8 +610,8 @@ button:active, button.button-clicked {
 }
 
 .explanation-panel {
-    background-color: rgba(15, 20, 25, 0.85);
-    border: 1px solid #2e3740;
+    background-color: var(--panel-bg);
+    border: 1px solid var(--panel-border);
     border-radius: 12px;
     padding: 20px;
     min-height: 180px;
@@ -533,6 +621,8 @@ button:active, button.button-clicked {
     opacity: 0;
     animation: fadeIn 0.6s forwards;
     animation-delay: 0.2s;
+    box-sizing: border-box;
+    width: 100%;
 }
 
 .explanation-panel:hover {
@@ -541,11 +631,11 @@ button:active, button.button-clicked {
 }
 
 .explanation-panel h3 {
-    color: #fff;
+    color: var(--text-primary);
     margin-top: 0;
     margin-bottom: 15px;
     padding-bottom: 8px;
-    border-bottom: 2px solid rgba(255, 255, 255, 0.2);
+    border-bottom: 2px solid rgba(128, 128, 128, 0.2);
     font-size: 1.3rem;
     display: flex;
     align-items: center;
@@ -555,10 +645,11 @@ button:active, button.button-clicked {
 .explanation-panel p {
     margin: 0;
     line-height: 1.6;
-    color: #e0e0e0;
+    color: var(--panel-text);
     font-size: 1rem;
 }
 
+/* Base styles for all explanation panels regardless of theme */
 .explanation-panel.binary { 
     border-left: 5px solid #28a745; 
 }
@@ -573,6 +664,39 @@ button:active, button.button-clicked {
 
 .explanation-panel.hex { 
     border-left: 5px solid #6f42c1; 
+}
+
+/* Theme-specific panel styling */
+[data-theme="dark"] .explanation-panel.binary { 
+    background: linear-gradient(to right, rgba(40, 167, 69, 0.1), var(--panel-bg));
+}
+
+[data-theme="dark"] .explanation-panel.decimal { 
+    background: linear-gradient(to right, rgba(0, 123, 255, 0.1), var(--panel-bg));
+}
+
+[data-theme="dark"] .explanation-panel.octal { 
+    background: linear-gradient(to right, rgba(253, 126, 20, 0.1), var(--panel-bg));
+}
+
+[data-theme="dark"] .explanation-panel.hex { 
+    background: linear-gradient(to right, rgba(111, 66, 193, 0.1), var(--panel-bg));
+}
+
+[data-theme="light"] .explanation-panel.binary { 
+    background: linear-gradient(to right, rgba(40, 167, 69, 0.1), var(--panel-bg));
+}
+
+[data-theme="light"] .explanation-panel.decimal { 
+    background: linear-gradient(to right, rgba(0, 123, 255, 0.1), var(--panel-bg));
+}
+
+[data-theme="light"] .explanation-panel.octal { 
+    background: linear-gradient(to right, rgba(253, 126, 20, 0.1), var(--panel-bg));
+}
+
+[data-theme="light"] .explanation-panel.hex { 
+    background: linear-gradient(to right, rgba(111, 66, 193, 0.1), var(--panel-bg));
 }
 
 .explanation-panel sup {
@@ -959,13 +1083,666 @@ button:active, button.button-clicked {
     }
 }
 
-.bulb-base::before {
-    content: '';
+/* Standardize dimensions for dark mode */
+[data-theme="dark"] .number-displays {
+    background: rgba(0, 0, 0, 0.2);
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.15);
+    border: 1px solid transparent;
+    height: 100px;
+}
+
+/* Standardize dimensions for light mode */
+[data-theme="light"] .number-displays {
+    background: rgba(226, 240, 255, 0.7);
+    box-shadow: 0 4px 15px rgba(0, 60, 255, 0.15);
+    border: 1px solid rgba(100, 170, 255, 0.2);
+    border-radius: 12px;
+    height: 100px;
+}
+
+/* Force displays to have identical dimensions in both themes */
+[data-theme="light"] .decimal-display,
+[data-theme="light"] .octal-display,
+[data-theme="light"] .hex-display {
+    background: rgba(255, 255, 255, 0.5);
+    height: 60px;
+    min-height: 60px;
+}
+
+[data-theme="dark"] .decimal-display,
+[data-theme="dark"] .octal-display,
+[data-theme="dark"] .hex-display {
+    height: 60px;
+    min-height: 60px;
+}
+
+/* Add back header top and theme toggle */
+.header-top {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    width: 100%;
+    margin-bottom: 10px;
+    height: 40px; /* Fixed height for consistent spacing */
+}
+
+.theme-toggle {
     position: absolute;
-    top: -8px;
-    left: 0;
-    width: 32px;
-    height: 10px;
-    background-color: #555;
-    border-radius: 12px 12px 2px 2px;
+    right: 0;
+    top: 0;
+    background: none;
+    border: none;
+    color: var(--text-primary);
+    font-size: 1.2rem;
+    cursor: pointer;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.3s ease;
+    background-color: var(--control-bg);
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    z-index: 10; /* Ensure it's above other elements */
+    margin: 0; /* Reset any margins */
+    padding: 0; /* Reset any padding */
+}
+
+.theme-toggle:hover {
+    transform: translateY(-2px);
+    background-color: var(--control-bg-hover);
+}
+
+.theme-toggle:active {
+    transform: scale(0.95);
+}
+
+.dark-icon, .light-icon {
+    position: absolute;
+    transition: opacity 0.3s ease, transform 0.5s ease;
+}
+
+.dark-icon {
+    opacity: 0;
+    transform: rotate(-30deg) scale(0);
+}
+
+.light-icon {
+    opacity: 1;
+    transform: rotate(0) scale(1);
+}
+
+[data-theme="dark"] .dark-icon {
+    opacity: 1;
+    transform: rotate(0) scale(1);
+}
+
+[data-theme="dark"] .light-icon {
+    opacity: 0;
+    transform: rotate(30deg) scale(0);
+}
+
+.theme-toggle-active {
+    animation: pulse 0.3s ease-in-out;
+}
+
+@keyframes pulse {
+    0% { transform: scale(1); }
+    50% { transform: scale(1.15); }
+    100% { transform: scale(1); }
+}
+
+/* Clean up number display styling */
+.number-displays {
+    grid-area: displays;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    gap: 40px;
+    padding: 15px 20px;
+    flex-wrap: nowrap;
+    position: relative;
+    z-index: 2;
+    width: calc(100% - 40px);
+    margin: 0 auto;
+    border-radius: 10px;
+    transition: all 0.3s ease;
+    box-sizing: border-box;
+    border: 1px solid transparent;
+    max-width: 900px;
+    min-height: 100px;
+    height: 100px;
+    background: var(--control-bg);
+}
+
+/* Consistent label styling */
+.decimal-display label,
+.octal-display label,
+.hex-display label {
+    font-weight: 600;
+    margin-right: 8px;
+    min-width: 70px;
+    display: inline-block;
+    color: inherit;
+}
+
+/* Make sure light mode display hover effects are consistent */
+[data-theme="light"] .number-displays:hover {
+    background: var(--control-bg-hover);
+    box-shadow: 0 5px 20px rgba(0, 60, 255, 0.2);
+}
+
+[data-theme="dark"] .number-displays:hover {
+    background: var(--control-bg-hover);
+    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.25);
+}
+
+/* Fix the bulb-on info-bit class name */
+.bulb-on .info-bit {
+    color: #f0f0f0;
+}
+
+/* Number input styling */
+.number-input {
+    background: transparent;
+    border: none;
+    border-bottom: 2px solid rgba(255, 255, 128, 0.5);
+    color: var(--text-primary);
+    font-size: inherit;
+    font-weight: bold;
+    width: 100px;
+    padding: 8px;
+    margin-left: 5px;
+    text-align: center;
+    transition: all 0.3s ease;
+    border-radius: 4px;
+}
+
+.number-input:hover {
+    border-bottom-color: rgba(255, 255, 128, 0.8);
+    background: rgba(255, 255, 255, 0.05);
+}
+
+.number-input:focus {
+    outline: none;
+    border-bottom-color: #FFFF80;
+    box-shadow: 0 5px 10px rgba(255, 255, 128, 0.2);
+    background: rgba(255, 255, 255, 0.1);
+}
+
+/* Make text darker in light mode */
+[data-theme="light"] .explanation-panel p {
+    color: #000000;
+    font-weight: 500;
+}
+
+[data-theme="light"] .explanation-panel strong {
+    color: #000000;
+    font-weight: 700;
+}
+
+[data-theme="light"] .explanation-panel sup {
+    color: #375a7f;
+}
+
+/* Make panel headers darker and more visible in light mode */
+[data-theme="light"] .explanation-panel h3 {
+    color: #000000;
+    font-weight: 700;
+    border-bottom: 2px solid rgba(0, 0, 0, 0.2);
+}
+
+/* Make calculation values darker and more readable */
+[data-theme="light"] .explanation-panel.binary strong,
+[data-theme="light"] .explanation-panel.binary p strong {
+    color: #094a19;
+}
+
+[data-theme="light"] .explanation-panel.decimal strong,
+[data-theme="light"] .explanation-panel.decimal p strong {
+    color: #00326e;
+}
+
+[data-theme="light"] .explanation-panel.octal strong, 
+[data-theme="light"] .explanation-panel.octal p strong {
+    color: #8a3e00;
+}
+
+[data-theme="light"] .explanation-panel.hex strong,
+[data-theme="light"] .explanation-panel.hex p strong {
+    color: #37157d;
+}
+
+/* Darker text for number displays in light mode */
+[data-theme="light"] .decimal-display {
+    color: #00326e;
+    font-weight: 700;
+}
+
+[data-theme="light"] .octal-display {
+    color: #8a3e00;
+    font-weight: 700;
+}
+
+[data-theme="light"] .hex-display {
+    color: #37157d;
+    font-weight: 700;
+}
+
+/* Darker labels in light mode */
+[data-theme="light"] .decimal-display label {
+    color: #00326e;
+    font-weight: 700;
+}
+
+[data-theme="light"] .octal-display label {
+    color: #8a3e00;
+    font-weight: 700;
+}
+
+[data-theme="light"] .hex-display label {
+    color: #37157d;
+    font-weight: 700;
+}
+
+/* Higher contrast for input fields */
+[data-theme="light"] .number-input {
+    border-bottom: 2px solid rgba(0, 60, 120, 0.5);
+    color: #05203c;
+    background-color: rgba(255, 255, 255, 0.7);
+    font-size: 1.3rem;
+    font-weight: 600;
+}
+
+[data-theme="light"] .decimal-display .number-input {
+    border-bottom-color: rgba(0, 60, 150, 0.7);
+    color: #003d9e;
+}
+
+[data-theme="light"] .octal-display .number-input {
+    border-bottom-color: rgba(167, 72, 0, 0.7);
+    color: #a74800;
+}
+
+[data-theme="light"] .hex-display .number-input {
+    border-bottom-color: rgba(68, 32, 140, 0.7);
+    color: #44208c;
+}
+
+/* Darker tagline text */
+[data-theme="light"] .tagline {
+    color: #253f5e;
+    font-weight: 500;
+}
+
+/* Category-specific header colors in light mode */
+[data-theme="light"] .explanation-panel.binary h3 {
+    color: #094a19;
+}
+
+[data-theme="light"] .explanation-panel.decimal h3 {
+    color: #00326e;
+}
+
+[data-theme="light"] .explanation-panel.octal h3 {
+    color: #8a3e00;
+}
+
+[data-theme="light"] .explanation-panel.hex h3 {
+    color: #37157d;
+}
+
+/* Icon styling for light mode */
+[data-theme="light"] .explanation-panel i {
+    display: inline-block;
+    width: 28px;
+    height: 28px;
+    line-height: 28px;
+    text-align: center;
+    background: rgba(0, 0, 0, 0.1);
+    border-radius: 50%;
+}
+
+[data-theme="light"] .explanation-panel.binary i {
+    background: rgba(40, 167, 69, 0.15);
+    color: #0b5a20;
+}
+
+[data-theme="light"] .explanation-panel.decimal i {
+    background: rgba(0, 102, 204, 0.15);
+    color: #003d7a;
+}
+
+[data-theme="light"] .explanation-panel.octal i {
+    background: rgba(253, 126, 20, 0.15);
+    color: #a74a00;
+}
+
+[data-theme="light"] .explanation-panel.hex i {
+    background: rgba(111, 66, 193, 0.15);
+    color: #44208c;
+}
+
+/* Darker border for explanation panels */
+[data-theme="light"] .explanation-panel {
+    border: 1px solid rgba(0, 60, 120, 0.15);
+}
+
+[data-theme="light"] .explanation-panel h3 {
+    border-bottom: 2px solid rgba(0, 40, 80, 0.15);
+}
+
+/* Also ensure the instructions text is darker */
+[data-theme="light"] .instructions {
+    color: #253f5e;
+    font-weight: 500;
+}
+
+/* Ensure the subtitle text is dark enough */
+.subtitle {
+    color: var(--text-secondary);
+    text-align: center;
+    margin: 5px 0 15px;
+    transition: color 0.3s;
+}
+
+[data-theme="light"] .subtitle {
+    color: #253f5e;
+    font-weight: 500;
+}
+
+/* Make sure any other instructions text is dark enough */
+.instruction-text {
+    color: var(--text-secondary);
+    text-align: center;
+    margin: 5px 0;
+    transition: color 0.3s;
+}
+
+[data-theme="light"] .instruction-text {
+    color: #253f5e;
+    font-weight: 500;
+}
+
+/* Darker text for all heading and descriptive elements in light mode */
+[data-theme="light"] p {
+    color: #253f5e;
+}
+
+/* Target the specific text about watching values change */
+[data-theme="light"] .watch-text,
+[data-theme="light"] .description-text {
+    color: #05203c;
+    font-weight: 500;
+}
+
+/* Make sure all heading text is dark enough */
+[data-theme="light"] .header-text,
+[data-theme="light"] .title-text,
+[data-theme="light"] .section-title {
+    color: #000000;
+    font-weight: 800;
+}
+
+/* Make all labels in light mode darker */
+[data-theme="light"] label {
+    color: #000000;
+    font-weight: 600;
+}
+
+/* Make ALL text much darker in light mode */
+[data-theme="light"] h1 {
+    color: #000000;
+    text-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    font-weight: 800;
+}
+
+[data-theme="light"] h2 {
+    color: #000000;
+    font-weight: 700;
+}
+
+[data-theme="light"] p,
+[data-theme="light"] .tagline,
+[data-theme="light"] .info-bit,
+[data-theme="light"] .subtitle,
+[data-theme="light"] .instruction-text,
+[data-theme="light"] .watch-text,
+[data-theme="light"] .description-text,
+[data-theme="light"] .explanations-header p {
+    color: #000000;
+    font-weight: 500;
+}
+
+/* Make explanation panel text much darker */
+[data-theme="light"] .explanation-panel p {
+    color: #000000;
+    font-weight: 500;
+}
+
+[data-theme="light"] .explanation-panel strong {
+    color: #000000;
+    font-weight: 700;
+}
+
+/* Make panel headers near-black */
+[data-theme="light"] .explanation-panel h3 {
+    color: #000000;
+    font-weight: 700;
+    border-bottom: 2px solid rgba(0, 0, 0, 0.2);
+}
+
+/* Override specific panel colors with darker versions */
+[data-theme="light"] .explanation-panel.binary h3 {
+    color: #094a19;
+}
+
+[data-theme="light"] .explanation-panel.decimal h3 {
+    color: #00326e;
+}
+
+[data-theme="light"] .explanation-panel.octal h3 {
+    color: #8a3e00;
+}
+
+[data-theme="light"] .explanation-panel.hex h3 {
+    color: #37157d;
+}
+
+/* Make calculation values black */
+[data-theme="light"] .explanation-panel.binary strong,
+[data-theme="light"] .explanation-panel.binary p strong {
+    color: #094a19;
+}
+
+[data-theme="light"] .explanation-panel.decimal strong,
+[data-theme="light"] .explanation-panel.decimal p strong {
+    color: #00326e;
+}
+
+[data-theme="light"] .explanation-panel.octal strong, 
+[data-theme="light"] .explanation-panel.octal p strong {
+    color: #8a3e00;
+}
+
+[data-theme="light"] .explanation-panel.hex strong,
+[data-theme="light"] .explanation-panel.hex p strong {
+    color: #37157d;
+}
+
+/* Make number displays darker */
+[data-theme="light"] .decimal-display {
+    color: #00326e;
+    font-weight: 700;
+}
+
+[data-theme="light"] .octal-display {
+    color: #8a3e00;
+    font-weight: 700;
+}
+
+[data-theme="light"] .hex-display {
+    color: #37157d;
+    font-weight: 700;
+}
+
+/* Make labels black */
+[data-theme="light"] label {
+    color: #000000;
+    font-weight: 600;
+}
+
+/* Specific label colors */
+[data-theme="light"] .decimal-display label {
+    color: #00326e;
+    font-weight: 700;
+}
+
+[data-theme="light"] .octal-display label {
+    color: #8a3e00;
+    font-weight: 700;
+}
+
+[data-theme="light"] .hex-display label {
+    color: #37157d;
+    font-weight: 700;
+}
+
+/* Make sure header text is super visible */
+.header-text,
+.title-text,
+.section-title {
+    text-align: center;
+    width: 100%;
+}
+
+[data-theme="light"] .header-text,
+[data-theme="light"] .title-text,
+[data-theme="light"] .section-title {
+    color: #000000;
+    font-weight: 800;
+}
+
+/* Increase contrast for watch text */
+[data-theme="light"] .watch-values-text {
+    color: #000000;
+    font-weight: 600;
+}
+
+/* Add specific styles for the "Watch how values change" text */
+[data-theme="light"] .watch-values-text,
+[data-theme="light"] .watch-text,
+[data-theme="light"] .value-change-text {
+    color: #000000;
+    font-weight: 600;
+}
+
+/* Target the subtitle text specifically with multiple selectors */
+[data-theme="light"] .tagline,
+[data-theme="light"] .subtitle,
+[data-theme="light"] .sub-title,
+[data-theme="light"] .game-subtitle,
+[data-theme="light"] .app-subtitle,
+[data-theme="light"] p.subtitle,
+[data-theme="light"] .description,
+[data-theme="light"] .instructions,
+[data-theme="light"] .instruction-text {
+    color: #000000 !important;
+    font-weight: 600 !important;
+    text-shadow: none !important;
+}
+
+/* Add !important to force color on text elements */
+[data-theme="light"] p,
+[data-theme="light"] span,
+[data-theme="light"] div {
+    color: #000000;
+}
+
+/* Ensure that the page title and section headers are black in light mode */
+[data-theme="light"] #page-title,
+[data-theme="light"] .page-title,
+[data-theme="light"] .main-title,
+[data-theme="light"] .section-header,
+[data-theme="light"] #main-title {
+    color: #000000 !important;
+    font-weight: 800 !important;
+}
+
+/* Remove mode-specific font weight differences */
+[data-theme="light"] h1,
+[data-theme="dark"] h1 {
+    font-weight: 700;
+}
+
+[data-theme="light"] h2,
+[data-theme="light"] h3,
+[data-theme="dark"] h2,
+[data-theme="dark"] h3 {
+    font-weight: 600;
+}
+
+[data-theme="light"] p,
+[data-theme="light"] span,
+[data-theme="light"] div,
+[data-theme="light"] label,
+[data-theme="dark"] p,
+[data-theme="dark"] span,
+[data-theme="dark"] div,
+[data-theme="dark"] label {
+    font-weight: 400;
+}
+
+[data-theme="light"] strong,
+[data-theme="light"] b,
+[data-theme="dark"] strong,
+[data-theme="dark"] b {
+    font-weight: 700;
+}
+
+/* Fix specific font-weight overrides */
+[data-theme="light"] .explanation-panel p,
+[data-theme="dark"] .explanation-panel p {
+    font-weight: 400;
+}
+
+[data-theme="light"] .explanation-panel strong,
+[data-theme="dark"] .explanation-panel strong {
+    font-weight: 700;
+}
+
+[data-theme="light"] .explanation-panel h3,
+[data-theme="dark"] .explanation-panel h3 {
+    font-weight: 600;
+}
+
+[data-theme="light"] .decimal-display,
+[data-theme="light"] .octal-display,
+[data-theme="light"] .hex-display,
+[data-theme="dark"] .decimal-display,
+[data-theme="dark"] .octal-display,
+[data-theme="dark"] .hex-display {
+    font-weight: 600;
+}
+
+[data-theme="light"] .decimal-display label,
+[data-theme="light"] .octal-display label,
+[data-theme="light"] .hex-display label,
+[data-theme="dark"] .decimal-display label,
+[data-theme="dark"] .octal-display label,
+[data-theme="dark"] .hex-display label {
+    font-weight: 500;
+}
+
+/* Make subtitle and instruction text weight consistent */
+[data-theme="light"] .tagline,
+[data-theme="light"] .subtitle,
+[data-theme="light"] .instruction-text,
+[data-theme="dark"] .tagline,
+[data-theme="dark"] .subtitle,
+[data-theme="dark"] .instruction-text {
+    font-weight: 500 !important;
 }

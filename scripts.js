@@ -1,3 +1,41 @@
+// Add theme toggle functionality
+class ThemeManager {
+    constructor() {
+        this.themeToggle = document.getElementById('themeToggle');
+        this.htmlElement = document.documentElement;
+        this.currentTheme = localStorage.getItem('theme') || 'dark';
+        
+        this.init();
+    }
+    
+    init() {
+        // Set initial theme based on saved preference
+        this.setTheme(this.currentTheme);
+        
+        // Add event listener to the theme toggle button
+        if (this.themeToggle) {
+            this.themeToggle.addEventListener('click', () => this.toggleTheme());
+        }
+    }
+    
+    setTheme(theme) {
+        this.htmlElement.setAttribute('data-theme', theme);
+        localStorage.setItem('theme', theme);
+        this.currentTheme = theme;
+    }
+    
+    toggleTheme() {
+        const newTheme = this.currentTheme === 'dark' ? 'light' : 'dark';
+        this.setTheme(newTheme);
+        
+        // Add animation effect
+        this.themeToggle.classList.add('theme-toggle-active');
+        setTimeout(() => {
+            this.themeToggle.classList.remove('theme-toggle-active');
+        }, 300);
+    }
+}
+
 class BinaryLightBulbGame {
     constructor(initialBulbCount = 5) {
         this.initialBulbCount = initialBulbCount;
@@ -527,9 +565,10 @@ class BinaryLightBulbGame {
     }
 }
 
-// Initialize the game when the DOM is fully loaded
+// Initialize the game and theme manager when the DOM is fully loaded
 document.addEventListener('DOMContentLoaded', () => {
     new BinaryLightBulbGame();
+    new ThemeManager();
 });
 
 // hi

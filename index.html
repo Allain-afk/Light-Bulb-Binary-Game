@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" data-theme="dark">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
@@ -11,7 +11,13 @@
 <body>
     <div class="game-container">
         <header>
-            <h1>Binary Light Bulb Game <i class="fas fa-lightbulb"></i></h1>
+            <div class="header-top">
+                <button id="themeToggle" class="theme-toggle" aria-label="Toggle light/dark theme">
+                    <i class="fas fa-moon dark-icon"></i>
+                    <i class="fas fa-sun light-icon"></i>
+                </button>
+                <h1>Binary Light Bulb Game <i class="fas fa-lightbulb"></i></h1>
+            </div>
             <p class="tagline">Turn on the light bulbs to create binary numbers and see conversions</p>
         </header>
         
