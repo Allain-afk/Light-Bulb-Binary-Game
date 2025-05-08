@@ -2,7 +2,7 @@
 
 ![Preview](img/Preview.png)
 
-![Live Demo](https://allain-afk.github.io/BINARY/)
+## [Live Demo: Click Here](https://allain-afk.github.io/BINARY/)
 
 ## Features
 
